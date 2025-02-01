@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #0074e1;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+    }
+
+    .card h3 {
+      color: #0074e1;
+      margin-bottom: 15px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #4a45b0;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #2e3a46;
+      color: white;
+      margin-top: 20px;
+    }
+
+    /* Graphical section above footer */
+    .graphical-section {
+      background-color: #ffffff;
+      padding: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .bar {
+      width: 100%;
+      height: 30px;
+      background-color: #0074e1;
+      margin-bottom: 10px;
+    }
+
+    .bar-title {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    const inventoryData = {
+      "NGO A": [
+        { item: "Blankets", quantity: 200 },
+        { item: "Food", quantity: 500 },
+        { item: "Drinking Water", quantity: 1000 },
+        { item: "Sanitary products", quantity: 300 }
+      ],
+      "NGO B": [
+        { item: "Blankets", quantity: 100 },
+        { item: "Food", quantity: 300 },
+        { item: "Drinking Water", quantity: 800 },
+        { item: "Medical Supplies", quantity: 200 }
+      ]
+    };
+
+    const needsData = {
+      "Camp 1": [
+        { item: "Blankets", quantity: 50 },
+        { item: "Food", quantity: 150 },
+        { item: "Drinking Water", quantity: 300 },
+        { item: "Medical Supplies", quantity: 200 }
+      ],
+      "Camp 2": [
+        { item: "Tents", quantity: 30 },
+        { item: "Clothing", quantity: 500 },
+        { item: "Hygiene Kits", quantity: 250 },
+        { item: "Food", quantity: 400 }
+      ]
+    };
+
+    function updateInventory() {
+      const selectedNGO = document.getElementById("ngoSelect").value;
+      const tableBody = document.getElementById("inventoryTable");
+      tableBody.innerHTML = "";
+
+      if (selectedNGO !== "Select") {
+        inventoryData[selectedNGO].forEach(item => {
+          const row = `<tr><td>${item.item}</td><td>${item.quantity}</td></tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+    }
+
+    function updateNeeds() {
+      const selectedCamp = document.getElementById("campSelect").value;
+      const tableBody = document.getElementById("needsTable");
+      tableBody.innerHTML = "";
+
+      if (selectedCamp !== "Select") {
+        needsData[selectedCamp].forEach(item => {
+          const row = `<tr><td>${item.item}</td><td>${item.quantity}</td></tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="RestoreHope.jpg" alt="Charity Logo">
+      <h1>RestoreSync</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h3>Organization Inventory</h3>
+      <label for="ngoSelect">Select NGO:</label>
+      <select id="ngoSelect" onchange="updateInventory()">
+        <option value="Select" selected disabled>Select</option>
+        <option value="NGO A">NGO A</option>
+        <option value="NGO B">NGO B</option>
+      </select>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody id="inventoryTable"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Needs of the NGO</h3>
+      <label for="campSelect">Select Camp:</label>
+      <select id="campSelect" onchange="updateNeeds()">
+        <option value="Select" selected disabled>Select</option>
+        <option value="Camp 1">Camp 1</option>
+        <option value="Camp 2">Camp 2</option>
+      </select>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Required Quantity</th>
+          </tr>
+        </thead>
+        <tbody id="needsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Graphical Representation Section -->
+  <div class="graphical-section">
+    <h3>NGO Distribution Overview</h3>
+    <div class="bar" style="width: 80%;"></div>
+    <div class="bar-title">NGO A (80% of resources)</div>
+    <div class="bar" style="width: 60%;"></div>
+    <div class="bar-title">NGO B (60% of resources)</div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Charity Organization</p>
+  </footer>
+</body>
+</html>
