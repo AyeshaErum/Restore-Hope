@@ -1,6 +1,8 @@
 # Restore-Hope
 # RestoreSync - Matching Algorithm and Admin Dashboard
 
+(All our files are in the master branch)
+
 RestoreSync is a real-time disaster response system that matches aid requests from Internally Displaced Person (IDP) camps with available resources from NGOs. The system utilizes a Python-based matching algorithm, a live MongoDB database connection, and an admin dashboard to streamline humanitarian aid delivery.
 
 ## Project Overview
